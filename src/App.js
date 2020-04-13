@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
+import {Switch, Route} from 'react-router-dom';
+import Header from './components/header/header.component';
+import Homepage from './pages/homepage/homepage.component.jsx';
+import DonationPage from './pages/donation-page/donation-page.component';
+import AboutUsPage from './pages/about-us-page/about-us-page.component';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+//import Redirect -> is there an option that waits a duration before redirecting?
+
+
+
+class App extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {};
+  }
+
+  render() {
+    return <div>
+      <Header/>
+      <Switch>
+        <Route exact path="/" component={Homepage}/>
+        <Route exact path="/donate" component={DonationPage}/>
+        <Route exact path="/aboutus" component={AboutUsPage}/>
+      </Switch>
     </div>
-  );
+
+  }
 }
+
+
 
 export default App;
