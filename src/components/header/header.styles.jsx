@@ -7,7 +7,11 @@ export const HeaderContainer = styled.div`
     padding: 30px;    
 `;
 export const LogoContainer = styled(Link)`
-    
+
+`;
+
+export const ProfileContainer = styled.div`
+
 `;
 
 export const DirectoryContainer = styled.div`
