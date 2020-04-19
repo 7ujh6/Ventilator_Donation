@@ -19,12 +19,18 @@ export const createUserDocument = async (userAuth, additionalData) => {
     if (!userAuth)
         return;
 
+    console.log("data coming in from SignUp", "userAuth: ", userAuth, "additionalData: ", additionalData);
+
     const userRef = firestore.doc(`users/${userAuth.uid}`);
     const snapShot = await userRef.get();
 
     if (!snapShot.exists)
     {
-        const {displayName, email} = userAuth;
+        var {displayName, email} = userAuth;
+        var {otherDisplayName} = additionalData;
+        console.log("otherDisplayName: ", otherDisplayName, "additionalData: ", additionalData);
+
+        displayName = !userAuth.displayName ? otherDisplayName: displayName;
         const joinDate = new Date();
 
         try {

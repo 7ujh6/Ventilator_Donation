@@ -29,13 +29,11 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-
-    console.log("currentUser: ", this.currentUser);
-
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      console.log("unsubscribeFromAuth is being called in this flow!");
       if (userAuth) {
         const userRef = await createUserDocument(userAuth, {displayIcon: defaultProfileIcon, friendsList: [], blackList: [], activityStatus: {value: "offline"}, activeDecks: []});
-        userRef.set({activityStatus: "online"})
+        await userRef.update({activityStatus: "online"})
         userRef.onSnapshot(snapShot => {this.setState({currentUser: {id: snapShot.id, ...snapShot.data()}})});  
       }
 

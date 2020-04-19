@@ -30,8 +30,11 @@ class SignUp extends React.Component {
         }
 
         try {
+            console.log("SignUp calling createUser: ", auth);
             const {user} = auth.createUserWithEmailAndPassword(email, password);
-            await createUserDocument (user, {displayName: displayName, displayIcon: defaultProfileIcon, friendsList: [], blackList: [], activityStatus: {value: "offline"}, activeDecks: []});
+            console.log("Successfully invoked auth.createUserWithEmailAndPassword ");
+            const userRef = await createUserDocument (user, {displayName: displayName, displayIcon: defaultProfileIcon, friendsList: [], blackList: [], activityStatus: {value: "offline"}, activeDecks: []});
+            console.log("The document that was created in SignUp: ", await userRef.get().data())
             
             this.setState({
                 displayName: "",
