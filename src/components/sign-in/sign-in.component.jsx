@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {auth, SignInWithGoogle} from '../../firebase/firebase.utils';
 import CustomButton from '../custom-button/custom-button.component';
 import FormInput from '../form-input/form-input.component';
@@ -9,6 +9,7 @@ class SignIn extends React.Component {
     constructor() {
         super();
 
+
         this.state = {
             email: "",
             password: ""
@@ -17,7 +18,6 @@ class SignIn extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-
         const {email, password} = this.state;
 
         try {

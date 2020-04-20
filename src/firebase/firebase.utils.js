@@ -1,6 +1,10 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import {useContext} from 'react';
+import {UserContext} from '../providers/user/user.provider';
+
+
 
 const config = {
     apiKey: "AIzaSyDaZiqbkNS-wFDih0zU3rv0bUYC_gU8LiY",
@@ -15,23 +19,23 @@ const config = {
 
 firebase.initializeApp(config);
 
+//const {changeCurrentUser} = useContext(UserContext);
+
 export const createUserDocument = async (userAuth, additionalData) => {
     if (!userAuth)
         return;
 
-    console.log("data coming in from SignUp", "userAuth: ", userAuth, "additionalData: ", additionalData);
+    //console.log("data coming in from SignUp", "userAuth: ", userAuth, "additionalData: ", additionalData);
 
     const userRef = firestore.doc(`users/${userAuth.uid}`);
     const snapShot = await userRef.get();
-
+    
     if (!snapShot.exists)
     {
-        var {displayName, email} = userAuth;
-        var {otherDisplayName} = additionalData;
-        console.log("otherDisplayName: ", otherDisplayName, "additionalData: ", additionalData);
-
-        displayName = !userAuth.displayName ? otherDisplayName: displayName;
+        const {email} = userAuth;
         const joinDate = new Date();
+
+        const displayName = !userAuth.displayName ? userAuth.displayName : additionalData.displayName;
 
         try {
             await userRef.set({displayName, email, joinDate, ...additionalData});
@@ -40,6 +44,7 @@ export const createUserDocument = async (userAuth, additionalData) => {
         }
     }
 
+    //changeCurrentUser(snapShot.data());
     return userRef;
 }
 
@@ -78,14 +83,20 @@ export const unblockFriend = async (blockList, friendsList, friend) => {
 }
 
 export const updateDisplayName = async (id, displayName) => {
-    await firestore.doc(`users/${id}`).set({displayName: displayName});
+    await firestore.doc(`users/${id}`).update({displayName: displayName});
     return displayName;
 }
 
 export const updateDisplayIcon = async (id, displayIcon) => {
-    await firestore.doc(`users/${id}`).set({displayIcon: displayIcon});
+    await firestore.doc(`users/${id}`).update({displayIcon: displayIcon});
     return displayIcon;
 }
+
+export const updateActivityStatus = async (id, activityStatus) => {
+    const update = activityStatus === "offline" ? "online" : "offline";
+    await firestore.doc(`users/${id}`).update({activityStatus: update})
+    return update;
+} 
 
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
     const collectionRef = firestore.collection(collectionKey);

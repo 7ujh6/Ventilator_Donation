@@ -5,8 +5,6 @@ import FormInput from '../form-input/form-input.component';
 import {SignUpContainer, SignUpTitle} from './sign-up.styles';
 import CustomButton from '../custom-button/custom-button.component';
 
-
-
 class SignUp extends React.Component {
     constructor() {
         super();
@@ -18,24 +16,21 @@ class SignUp extends React.Component {
             confirmPassword: ""
         };
     }
+    
 
     handleSubmit = async event => {
         event.preventDefault();
-
         const {displayName, email, password, confirmPassword} = this.state;
-
         if (password !== confirmPassword) {
             alert("passwords don't match");
             return;
         }
 
         try {
-            console.log("SignUp calling createUser: ", auth);
-            const {user} = auth.createUserWithEmailAndPassword(email, password);
-            console.log("Successfully invoked auth.createUserWithEmailAndPassword ");
-            const userRef = await createUserDocument (user, {displayName: displayName, displayIcon: defaultProfileIcon, friendsList: [], blackList: [], activityStatus: {value: "offline"}, activeDecks: []});
-            console.log("The document that was created in SignUp: ", await userRef.get().data())
-            
+
+            const {user} = await auth.createUserWithEmailAndPassword(email, password);
+            await createUserDocument (user, {displayName: displayName, displayIcon: defaultProfileIcon, friendsList: [], blackList: [], activityStatus: {value: "online"}, activeDecks: []});
+
             this.setState({
                 displayName: "",
                 email: "",

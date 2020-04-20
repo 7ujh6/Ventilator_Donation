@@ -1,21 +1,24 @@
 import React, {createContext, useState} from 'react';
-import {updateDisplayName, updateDisplayIcon, appendFriend, deleteFriend} from '../../firebase/firebase.utils';
+import {updateDisplayName, updateDisplayIcon, updateActivityStatus, appendFriend, deleteFriend} from '../../firebase/firebase.utils';
 import defaultProfileIcon from '../../assets/default-profile-icon.png';
 
 export const UserContext = createContext({
-    id: null,
-    displayName: "",
-    displayIcon: null,
-    friendsList: [],
-    blackList: [],
-    activityStatus: "offline",
-    activeDecks: [], //array of objects -> {name, language, [items]}; items-> {frontSide="", backSide=""}
+    currentUser: {
+        id: null,
+        displayName: "",
+        displayIcon: null,
+        friendsList: [],
+        blackList: [],
+        activityStatus: "offline",
+        activeDecks: [], //array of objects -> {name, language, [items]}; items-> {frontSide="", backSide=""}
+    },
+    changeCurrentUser: () => {},
     changeDisplayName: () => {},
     changeDisplayIcon: () => {},
+    changeActivityStatus: () => {},
     addFriend: () => {},
     deleteFriend: () => {},
     blockFriend: () => {},
-
 });
 
 const UserProvider = ({children}) => {
@@ -24,7 +27,8 @@ const UserProvider = ({children}) => {
     const [displayIcon, setDisplayIcon] = useState(null);
     const [friendsList, setFriendsList] = useState([]);
     const [blackList, setBlackList] = useState([]);
-    const [activityStatus] = useState("offline");
+    const [activityStatus, setActivityStatus] = useState("offline");
+    const [currentUser, setCurrentUser] = useState(null);
 
     const changeDisplayName = name => {
         setDisplayName(updateDisplayName(this.id, name));
@@ -36,15 +40,23 @@ const UserProvider = ({children}) => {
     }
 
     const addFriend = friend => {
-        setFriendsList(appendFriend(this.id, friendsList, friend));
+        setFriendsList(appendFriend(this.id, this.friendsList, friend));
     }
 
     const removeFriend = friend => {
-        setFriendsList(deleteFriend(this.id, friendsList, friend));
+        setFriendsList(deleteFriend(this.id, this.friendsList, friend));
+    }
+
+    const changeActivityStatus = () => {
+        setActivityStatus(updateActivityStatus(this.id, this.activityStatus));
+    }
+
+    const changeCurrentUser = user => {
+        setCurrentUser(user);
     }
 
     return <UserContext.Provider
-    value={{displayName, displayIcon, activityStatus, friendsList, changeDisplayName, changeDisplayIcon, addFriend, removeFriend}}>{children}</UserContext.Provider>
+    value={{currentUser, displayName, displayIcon, activityStatus, friendsList, changeCurrentUser, changeActivityStatus, changeDisplayName, changeDisplayIcon, addFriend, removeFriend}}>{children}</UserContext.Provider>
 }
 
 export default UserProvider;

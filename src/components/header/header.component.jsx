@@ -9,8 +9,8 @@ import ProfileDropdown from '../profile-dropdown/profile-dropdown.component';
 
 
 const Header = () => {
-    const {activityStatus} = useContext(UserContext);
-    const {hidden} = useContext(ProfileDisplayContext)
+    const currentUser = useContext(UserContext);
+    const {hidden} = useContext(ProfileDisplayContext);
     return <HeaderContainer>
         <LogoContainer to="/">
             <span>logo</span>
@@ -22,7 +22,7 @@ const Header = () => {
             <DirectoryLink to="/aboutus">About Us</DirectoryLink>
             {
                 //on sign out, current user will be set to null and the activity status of the user will be set to offline
-                activityStatus === "offline" ? (<DirectoryLink to="/signin">Sign In</DirectoryLink>) :
+                !currentUser ? (<DirectoryLink to="/signin">Sign In</DirectoryLink>) :
                 (<ProfileContainer><ProfileIcon/>{hidden ? null : <ProfileDropdown/>}</ProfileContainer>)
             }
         </DirectoryContainer>
