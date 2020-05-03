@@ -138,16 +138,46 @@ const Decks = ({activeDecks, changeActiveDecks, isUser}) => {
     //tied to handlePopUpOpen the popUp is being opened while simultaneously 
     //appending a new deck
     
-    return <DecksContainer><div style={{position: "absolute", left: "20px", width: "90px", height: "55px"}} onClick={toggleVisible}><DecksButton/></div>
-        {visible ? <ScrollWindow><FormInput style={{position: "relative", left:"20%", width: "60%"}} type='search' placeholder="search" value={searchText} onChange={handleSearchChange} onSubmit={null}/> 
-        {popUp ? <PopUpWindow isCardPopUp><HeaderButtonsContainer><span onClick={handlePopUpClose}>&#120299;</span></HeaderButtonsContainer>
-            {console.log(selectedDeck)}
-            {selectedDeck.deck.cards.map((card, idx) => <><Card id={idx} onClick={handleFlip} card = {card} frontSide = {frontSide}/><CancelContainer onClick={handleCardDeletion}>&#120299;</CancelContainer></>)}
-            {isUser ? getCardElement() : null}
-        </PopUpWindow> : null}<DeckDisplay>
-         {activeDecks.map((deck, idx) => <DeckCell key={idx} ><div id={idx} style={{cursor:"pointer", position: "relative", height: "55px", width: "95px", left: "30px"}} onClick={handlePopUpOpen}><DecksButton isAdd={true} noPlus={true}/></div><DisplayTagWithTooltip name="name">{deck.name ? deck.name : `Deck ${idx}`}<span name="description">{deck.description ? deck.description : 'Add A Description'}</span></DisplayTagWithTooltip><CancelContainer index={idx} onClick={handleDeckDeletion}>&#120299;</CancelContainer></DeckCell>)}        {isUser ? <div onClick={handleDeckUpdate}><DecksButton  isAdd={true} /></div> : null}
-        </DeckDisplay></ScrollWindow> : null}
-        </DecksContainer>
+    return <DecksContainer>
+        <div style={{position: "absolute", left: "20px", width: "90px", height: "55px"}} onClick={toggleVisible}><DecksButton/></div>
+        {
+            visible ? <ScrollWindow>
+                <FormInput style={{position: "relative", left:"20%", width: "60%"}} type='search' placeholder="search" value={searchText} onChange={handleSearchChange} onSubmit={null}/> 
+                {
+                    popUp ? 
+
+                    <PopUpWindow isCardPopUp><HeaderButtonsContainer><span onClick={handlePopUpClose}>&#120299;</span></HeaderButtonsContainer>
+                        {
+                            selectedDeck.deck.cards.map((card, idx) => <><Card id={idx} onClick={handleFlip} card = {card} frontSide = {frontSide}/><CancelContainer onClick={handleCardDeletion}>&#120299;</CancelContainer></>)
+                        }
+
+                        {
+                                isUser ? getCardElement() : null
+                        }
+                    
+                    </PopUpWindow>
+                    : null
+                }
+
+                <DeckDisplay>
+                    {
+                        activeDecks.map((deck, idx) => <DeckCell key={idx}>
+                                <div id={idx} style={{cursor:"pointer", position: "relative", height: "55px", width: "95px", left: "30px"}} onClick={handlePopUpOpen}>
+                                <DecksButton isAdd={true} noPlus={true}/>
+                                </div>
+                                <DisplayTagWithTooltip name="name">
+                                    {deck.name ? deck.name : `Deck ${idx}`}
+                                    <span name="description">{deck.description ? deck.description : 'Add A Description'}</span>
+                                </DisplayTagWithTooltip>
+                                <CancelContainer index={idx} onClick={handleDeckDeletion}>&#120299;</CancelContainer>
+                            </DeckCell>
+                        )}
+                    {isUser ? <div onClick={handleDeckUpdate}><DecksButton  isAdd={true} /></div> : null}
+                </DeckDisplay>
+            </ScrollWindow> 
+            : null
+        }
+    </DecksContainer>
 }
 
 export default Decks;
