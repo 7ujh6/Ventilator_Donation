@@ -9,18 +9,23 @@ const getCardStyles = ({frontSide}) => {
 
 export const CardContainer = styled.div`
     text-align: justify;
-    border: solid black;
+    border: solid #a9a9a9;
     height: 125px;
     width: 125px;
-    overflow-y: scroll;
+    position: relative;
+    top: 60px;
+    right: 152px;
+    ${'' /* overflow-y: scroll; */}
     ${getCardStyles}
 `;
 
 const FrontSideStyles = css`
+    right: 0px 
 
 `;
 
 
 const BackSideStyles = css`
+    right: 0px
 
 `;

@@ -10,7 +10,6 @@ export const LogoContainer = styled(Link)`
 `;
 
 export const ProfileContainer = styled.div`
-    justify-content: flex-end;
     position: relative;
 `;
 

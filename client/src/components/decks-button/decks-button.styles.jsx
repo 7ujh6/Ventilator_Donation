@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const DecksButtonContainer =  styled.div`
     height: 55px; 
+    cursor: pointer;
 `;
 
 export const LeftAddPane =  styled.div`

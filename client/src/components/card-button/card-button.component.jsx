@@ -1,9 +1,11 @@
 import React from 'react';
-import {CardButtonContainer} from './card-button.styles';
+import {CardButtonContainer, PlusIcon} from './card-button.styles';
+import PlusImage from '../../assets/plus_symbol.svg';
+
 
 const CardButton = () => {
 
-    return <CardButtonContainer>&#43;</CardButtonContainer>
+    return <CardButtonContainer><PlusIcon><img src={PlusImage} alt="plus-icon"/></PlusIcon></CardButtonContainer>
 }
 
 export default CardButton;

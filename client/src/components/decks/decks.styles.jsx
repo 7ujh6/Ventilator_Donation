@@ -20,6 +20,29 @@ export const CancelContainer = styled.div`
     }
 `;
 
+export const CardCell = styled.div`
+    height: 125px;
+    width: 160px;
+    position: relative;
+    right: 0px;
+    top: 60px;
+`;
+
+ export const CardCancelContainer = styled.div`
+    cursor: pointer;
+    position: relative;
+    left: 130px;
+    border-radius: 50%;
+    width: 15%;
+    height: 20px;
+    text-align: center;
+    top: 60px;
+    
+    &:hover {
+        background: red;
+    }
+ `;
+
 export const ScrollWindow = styled.div`
     margin-top: 100px;
     height: 525px;
@@ -73,8 +96,3 @@ export const DisplayTagWithTooltip = styled.div`
     
 `;
 
-export const HeaderButtonsContainer = styled.div`
-    display: flex;
-    justify-content: column;
-    text-align: right;
-`;

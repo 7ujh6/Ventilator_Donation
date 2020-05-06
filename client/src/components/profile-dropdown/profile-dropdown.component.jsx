@@ -23,7 +23,6 @@ const ProfileDropdown = ({history}) => {
     }, [])
 
 
-    console.log(activeFriends);
     return <ProfileDropdownContainer>
         <LabelContainer onClick={() => { 
             toggleHidden();

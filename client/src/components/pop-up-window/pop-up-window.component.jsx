@@ -1,9 +1,8 @@
 import React from 'react';
-import {PopUpWindowContainer} from './pop-up-window.styles';
+import {PopUpWindowContainer, HeaderButtonsContainer} from './pop-up-window.styles';
 
 const PopUpWindow = (props) => {
-
-    return <PopUpWindowContainer></PopUpWindowContainer>
+    return <><HeaderButtonsContainer onClick={props.handlePopUpClose}><span>&#120299;</span></HeaderButtonsContainer><PopUpWindowContainer {...props}></PopUpWindowContainer></>;
 }
 
 export default PopUpWindow;

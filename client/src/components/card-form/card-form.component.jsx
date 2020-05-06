@@ -1,9 +1,12 @@
 import React from 'react';
 import {CardFormContainer} from './card-form.styles';
 
-const CardForm = ({frontSide}) => {
+const CardForm = ({frontSide, handleSubmission, handleChange, tempFront, tempBack}) => {
+    console.log(frontSide, frontSide ? tempFront : tempBack)
+
     
-return <CardFormContainer><h1>{frontSide ? 'Front' : 'Back'}</h1></CardFormContainer>
+return <CardFormContainer placeholder={`${frontSide ? 'Front' : 'Back'}`} 
+    onChange={handleChange} value={frontSide ? tempFront : tempBack} onKeyPress={handleSubmission}></CardFormContainer>
 }
 
 export default CardForm;
