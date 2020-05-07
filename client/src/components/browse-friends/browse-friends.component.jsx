@@ -21,9 +21,9 @@ const BrowseFriends = ({history}) => {
       fetchData();
     }, [])
 
-
     const handleClick = event => {
-      history.push(`/profile/:userId/${userArray[event.id].uid}`);
+      const {id} = event.target;
+      history.push(`/profile/${userArray[id].uid}`);
     }
    
     return <BrowseFriendsContainer>

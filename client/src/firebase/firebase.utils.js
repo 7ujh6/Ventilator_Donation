@@ -56,7 +56,12 @@ provider.setCustomParameters({prompt: 'select_account'});
 export const SignInWithGoogle = () => auth.signInWithPopup(provider);
 
 export const fetchReferenceObject =  async (referenceString) => {
-    return await firestore.doc(referenceString).get().data();
+    var profileData = {};
+    await firestore.doc(referenceString).get().then((document) => {
+        profileData = {...profileData, data: document.data()};
+    })
+
+    return profileData;
 }
 
 export const fetchUserArray = async () => {
@@ -87,7 +92,7 @@ export const appendFriend = async (id, friendsList, friend) => {
 }
 
 export const deleteFriend = async (id, friendsList, friend) => {
-        return await firestore.doc(`users/${id}`).update({friendsList: friendsList.filter((it) => it === friend)});
+        return await firestore.doc(`users/${id}`).update({friendsList: await friendsList.filter((it) => it === friend)});
 }
 
 export const blackListUser = async (id, blackList, user) => {
@@ -95,7 +100,7 @@ export const blackListUser = async (id, blackList, user) => {
 }
 
 export const whiteListUser = async (id, blackList, user) => {
-    return await firestore.doc(`users/${id}`).update({blackList: blackList.filer((it) => it === user)});
+    return await firestore.doc(`users/${id}`).update({blackList: await blackList.filter((it) => it === user)});
 }
 
 export const updateDisplayName = async (id, displayName) => {

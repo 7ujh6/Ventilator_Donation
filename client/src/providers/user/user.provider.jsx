@@ -48,21 +48,21 @@ const UserProvider = ({children}) => {
 
     const addFriend = friend => {
         unblockUser(currentUser.id, blackList, friend);
-        setFriendsList(appendFriend(currentUser.id, friendsList, friend));
+        setFriendsList(appendFriend(currentUser.id, currentUser.friendsList, friend));
     }
 
     const removeFriend = friend => {
-        setFriendsList(deleteFriend(currentUser.id, friendsList, friend));
+        setFriendsList(deleteFriend(currentUser.id, currentUser.friendsList, friend));
     }
 
     const blockUser = user => {
         //if the user exists in the friendsList remove them then black list them
-        deleteFriend(currentUser.id, friendsList, user);
-        setBlackList(blackListUser(currentUser.id, blackList, user));
+        deleteFriend(currentUser.id, currentUser.friendsList, user);
+        setBlackList(blackListUser(currentUser.id, currentUser.blackList, user));
     }
 
     const unblockUser = user => {
-        setBlackList(whiteListUser(currentUser.id, blackList, user));
+        setBlackList(whiteListUser(currentUser.id, currentUser.blackList, user));
     }
 
     const changeActivityStatus = () => {

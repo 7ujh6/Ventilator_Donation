@@ -12,8 +12,8 @@ CancelButtonWithTooltip, TooltipText, FormContainer, FileInput, HeaderButtonsCon
 ImageContainer} from './personal-profile.styles'
 
 
-const PersonalProfile = ({history}) => {
-
+const PersonalProfile = ({history, match}) => {
+    console.log(match)
     const {currentUser: {displayIcon, displayName, activeDecks}, changeDisplayName, changeActiveDecks, changeDisplayIcon} = useContext(UserContext);
     
     const {visible, toggleVisible} = useContext(ProfileContext);

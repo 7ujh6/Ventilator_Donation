@@ -21,8 +21,10 @@ import './App.css';
 
 
 
-const App = () => {
+const App = ({match}) => {
   const {currentUser, changeCurrentUser} = useContext(UserContext);
+  console.log(match);
+
 
   useEffect(() => {
     //auth.signOut();

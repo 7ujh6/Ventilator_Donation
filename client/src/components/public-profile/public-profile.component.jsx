@@ -1,46 +1,70 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {fetchReferenceObject} from '../../firebase/firebase.utils';
 import {UserContext} from '../../providers/user/user.provider';
 import CustomButton from '../../components/custom-button/custom-button.component';
 import Decks from '../../components/decks/decks.component';
+import {withRouter} from 'react-router-dom';
 
 import {PublicProfileContainer, ProfileContainer, ProfileIconContainer, DisplayNameContainer, ButtonsContainer,
      ActivityIcon} from './public-profile.styles';
 
 
-const PublicProfile = ({userId}) => {
+const PublicProfile = ({match}) => {
+    const {userId} = match.params;
 
-    const userReference = fetchReferenceObject(`users/${userId}`);
-    
-    const {displayName, displayIcon, activityStatus, activeDecks} =  userReference;
+
+    const [profileData, setProfileData] = useState({
+        data: {displayName: null, displayIcon: null, activityStatus: null, activeDecks:[]}});
+        
+    useEffect(() => {
+        async function fetchProfileData() {
+           const fetchedProfileData = await fetchReferenceObject(`/users/${userId}`); 
+           setProfileData(fetchedProfileData);
+        }
+
+        fetchProfileData();
+    }, [])
+
+
+    const {displayName, displayIcon, activityStatus, activeDecks} =  profileData.data;
     const {friendsList, blackList, addFriend, removeFriend, blockUser, unblockUser} = useContext(UserContext);
 
-    const [friendAdded, toggleFriendAdded] = useState(friendsList.find((friend) => friend === userReference));
-    const [userBlocked, toggleUserBlocked] = useState(blackList).find((user) => user === userReference);
+
+    const [friendAdded, toggleFriendAdded] = useState(async () => await friendsList.find((friend) => friend.uid === userId));
+    const [userBlocked, toggleUserBlocked] = useState(async () => await blackList.find((user) => user.uid === userId));
 
     const handleAddAction = event => {
-        addFriend(userReference);
-        if (userBlocked) toggleUserBlocked();
-        toggleFriendAdded();
+        if (displayName) {
+            addFriend(profileData.data);
+            if (userBlocked) toggleUserBlocked();
+            toggleFriendAdded();
+        }
     }
 
     const handleRemoveAction = event => {
-        removeFriend(userReference);
-        toggleFriendAdded();
+        if (displayName) {
+            removeFriend(profileData.data);
+            toggleFriendAdded();
+        }
     }
 
     const handleBlockAction = event => {
-        blockUser(userReference);
-        if (friendAdded) toggleFriendAdded();
-        toggleUserBlocked();
+        if (displayName) {
+            blockUser(profileData.data);
+            if (friendAdded) toggleFriendAdded();
+            toggleUserBlocked();
+        }
     }
 
     const handleUnblockAction = event => {
-        unblockUser(userReference);
+        if (displayName) {
+            unblockUser(profileData.data);
+            toggleUserBlocked();
+        }
     }
 
 
-    return<PublicProfileContainer activityStatus={activityStatus}>
+    return <PublicProfileContainer activityStatus={activityStatus}>
         <ProfileContainer><ProfileIconContainer><img alt="profile-icon" src={displayIcon} height="100" width="100"/></ProfileIconContainer>
             <ActivityIcon/></ProfileContainer>
         <DisplayNameContainer>{displayName}</DisplayNameContainer>
@@ -50,7 +74,8 @@ const PublicProfile = ({userId}) => {
             <CustomButton>Chat</CustomButton>
         </ButtonsContainer>
         <Decks activeDecks={activeDecks}/>
-    </PublicProfileContainer> 
+    </PublicProfileContainer>
 }
 
-export default PublicProfile;
+
+export default withRouter(PublicProfile);
