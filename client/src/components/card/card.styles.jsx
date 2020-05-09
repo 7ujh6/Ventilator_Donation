@@ -15,6 +15,7 @@ export const CardContainer = styled.div`
     position: relative;
     top: 60px;
     right: 152px;
+    cursor: pointer;
     ${'' /* overflow-y: scroll; */}
     ${getCardStyles}
 `;

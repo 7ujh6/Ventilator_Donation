@@ -19,7 +19,11 @@ export const HeaderButtonsContainer = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-
+    height: 250px;
+    width: 250px;
+    position: relative;
+    left: 100px;
+    top: -60px;
 `;
 
 export const ProfileIconContainer = styled.div`
@@ -28,15 +32,33 @@ export const ProfileIconContainer = styled.div`
     margin: 50px 23vw;
 `;
 
+export const ProfileIcon = styled.img`
+    position: relative;
+    left: -5%;
+    border-radius: 50%;
+
+    @media screen and (max-width: 800px) {
+        left: -35%;
+    }
+`;
+
 export const ButtonsContainer = styled.div`
     ${getBlurEffectStyle}
-    margin: 30px 10vw;
+    margin: 30px 15vw;
+    @media screen and (max-width: 800px) {
+        margin: 30px -5vw;
+    }
 
 `;
 
 export const DisplayNameContainer = styled.span`
     ${getBlurEffectStyle}
-    margin: 30px 20vw;
+    position: relative;
+    left: 19vw;
+
+    @media screen and (max-width: 800px) {
+        left: 10%;
+    }
 
 `;
 

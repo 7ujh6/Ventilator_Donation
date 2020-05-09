@@ -11,7 +11,7 @@ export const ProfileDropdownContainer = styled.div`
   border: 1px solid black;
   background-color: white;
   top: 90px;
-  right: 40px;
+  right: 150px;
   z-index: 5;
 `;
 

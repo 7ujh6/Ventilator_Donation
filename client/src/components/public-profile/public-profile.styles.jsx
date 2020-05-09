@@ -16,17 +16,44 @@ export const PublicProfileContainer = styled.div`
 
 export const ProfileIconContainer = styled.div`
     border-radius: 50%;
+    @media screen and (max-width: 800px) {
+        margin: 0px 100px;
+    }
+
+`;
+
+export const ProfileIcon = styled.img`
+    position: relative;
+    left: 43%;
+    border-radius: 50%;
+
+    @media screen and (max-width: 800px) {
+        left: 0%;
+    }
 
 `;
 
 export const ProfileContainer = styled.div`
-
+        
 `;
-export const DisplayNameContainer = styled.span`
 
+export const DisplayNameContainer = styled.span`
+        position: relative;
+        left: 45%;
+
+        @media screen and (max-width: 800px) {
+            left: 30vw;
+        }
 `;
 
 export const ButtonsContainer = styled.div`
+        margin-bottom: 30px;
+        position: relative;
+        left: 35%;
+        margin-bottom: 30px;
+        @media screen and (max-width: 800px) {
+            left: 0%;
+        }
 
 `;
 

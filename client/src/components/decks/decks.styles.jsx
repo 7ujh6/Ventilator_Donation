@@ -1,4 +1,10 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
+
+const getPublicStyles = (props) => {
+    if (props.isPublicProfile) {
+        return PublicProfileStyles;
+    }
+}
 
 export const DecksContainer = styled.div`
     display: flex;
@@ -48,6 +54,13 @@ export const ScrollWindow = styled.div`
     height: 525px;
     width: 525px;
     border: 2px solid black;
+    background: white;
+    @media screen and (max-width: 800px) {
+        width: 400px;
+        position: relative;
+        right: 80px;
+        ${getPublicStyles}
+    }
 `;
 
 export const DeckDisplay = styled.div`
@@ -95,4 +108,15 @@ export const DisplayTagWithTooltip = styled.div`
     }
     
 `;
+
+const PublicProfileStyles = css`
+    width: 400px;
+    position: relative;
+    right: 50px;
+`;
+
+
+
+
+
 

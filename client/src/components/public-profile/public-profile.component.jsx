@@ -6,7 +6,7 @@ import Decks from '../../components/decks/decks.component';
 import {withRouter} from 'react-router-dom';
 
 import {PublicProfileContainer, ProfileContainer, ProfileIconContainer, DisplayNameContainer, ButtonsContainer,
-     ActivityIcon} from './public-profile.styles';
+     ActivityIcon, ProfileIcon} from './public-profile.styles';
 
 
 const PublicProfile = ({match}) => {
@@ -34,38 +34,52 @@ const PublicProfile = ({match}) => {
     const [userBlocked, toggleUserBlocked] = useState(async () => await blackList.find((user) => user.uid === userId));
 
     const handleAddAction = event => {
-        if (displayName) {
-            addFriend(profileData.data);
-            if (userBlocked) toggleUserBlocked();
-            toggleFriendAdded();
+        try {
+            if (displayName) {
+                addFriend(profileData.data);
+                if (userBlocked) toggleUserBlocked();
+                toggleFriendAdded();
+            }
+        } catch {
+            alert("Error with adding user. Try again later");
         }
     }
 
     const handleRemoveAction = event => {
-        if (displayName) {
-            removeFriend(profileData.data);
-            toggleFriendAdded();
-        }
+       try {
+            if (displayName) {
+                removeFriend(profileData.data);
+                toggleFriendAdded();
+            }
+        } catch (error) {
+            alert("Error with unfriending user. Try again later");
+        } 
     }
 
     const handleBlockAction = event => {
-        if (displayName) {
-            blockUser(profileData.data);
-            if (friendAdded) toggleFriendAdded();
-            toggleUserBlocked();
+        try {
+            if (displayName) {
+                blockUser(profileData.data);
+                if (friendAdded) toggleFriendAdded();
+                toggleUserBlocked();
+            } 
+        } catch (error) {
+            alert("Error with blocking user. Try again later.")
         }
     }
 
     const handleUnblockAction = event => {
-        if (displayName) {
+        try {if (displayName) {
             unblockUser(profileData.data);
             toggleUserBlocked();
+        }} catch (error) {
+            alert("Error with unblocking user. Try again later.");
         }
     }
 
 
     return <PublicProfileContainer activityStatus={activityStatus}>
-        <ProfileContainer><ProfileIconContainer><img alt="profile-icon" src={displayIcon} height="100" width="100"/></ProfileIconContainer>
+        <ProfileContainer><ProfileIconContainer><ProfileIcon alt="profile-icon" src={displayIcon} height="100" width="100"/></ProfileIconContainer>
             <ActivityIcon/></ProfileContainer>
         <DisplayNameContainer>{displayName}</DisplayNameContainer>
         <ButtonsContainer>
@@ -73,7 +87,8 @@ const PublicProfile = ({match}) => {
             {!userBlocked ? <CustomButton onClick={handleBlockAction}>Block User</CustomButton> : <CustomButton onClick={handleUnblockAction}>Unblock User</CustomButton>}
             <CustomButton>Chat</CustomButton>
         </ButtonsContainer>
-        <Decks activeDecks={activeDecks}/>
+        
+        <Decks isPublicProfile activeDecks={activeDecks}/>
     </PublicProfileContainer>
 }
 

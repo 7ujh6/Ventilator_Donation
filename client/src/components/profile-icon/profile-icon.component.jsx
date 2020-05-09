@@ -9,7 +9,7 @@ const ProfileIcon = () => {
 
 
 return <ProfileIconContainer onClick={toggleHidden}>
-    <img alt='default-profile'  width='45' height='45' 
+    <img alt='default-profile'  style={{borderRadius: "50%"}} width='45' height='45' 
     src={displayIcon}/></ProfileIconContainer>
 }
 

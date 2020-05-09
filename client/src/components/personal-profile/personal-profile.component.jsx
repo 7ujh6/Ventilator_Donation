@@ -9,11 +9,10 @@ import PopUpWindow from '../pop-up-window/pop-up-window.component';
 import {ReactComponent as EditIcon} from '../../assets/pencil-edit-button.svg'
 import {PersonalProfileContainer, ProfileIconContainer, ButtonsContainer, DisplayNameContainer,
 CancelButtonWithTooltip, TooltipText, FormContainer, FileInput, HeaderButtonsContainer,
-ImageContainer} from './personal-profile.styles'
+ImageContainer, ProfileIcon} from './personal-profile.styles'
 
 
-const PersonalProfile = ({history, match}) => {
-    console.log(match)
+const PersonalProfile = ({match}) => {
     const {currentUser: {displayIcon, displayName, activeDecks}, changeDisplayName, changeActiveDecks, changeDisplayIcon} = useContext(UserContext);
     
     const {visible, toggleVisible} = useContext(ProfileContext);
@@ -31,7 +30,6 @@ const PersonalProfile = ({history, match}) => {
             setReplacement("");
             toggleVisible();      
           }
-        
     }
 
     const handleChange = event => {
@@ -45,7 +43,9 @@ const PersonalProfile = ({history, match}) => {
     }
     const handleSelect = event => {
         if (event.target.files[0]) {
-            setImage(event.target.files[0]);
+            const reader = new FileReader();
+            reader.readAsDataURL(event.target.files[0]);
+            reader.onloadend = () => setImage(reader.result);
             setPopUp(!popUp);
         }
     }
@@ -57,25 +57,21 @@ const PersonalProfile = ({history, match}) => {
 
     const handleUpload = event => {
         changeDisplayIcon(image);
-        setImage("");
+        setImage(null);
         setPopUp(!popUp);
     }
 
-
-
-    return <PersonalProfileContainer popUp={popUp}>
-        <ProfileIconContainer><img alt='profile-icon' width='100' height='100' src={displayIcon} /></ProfileIconContainer>
+    return <PersonalProfileContainer>
+        {popUp ? <PopUpWindow cancelUpload={cancelUpload}><HeaderButtonsContainer></HeaderButtonsContainer><ImageContainer><ProfileIcon src={image} height="250" width="250" alt="new-profile-display"/></ImageContainer><CustomButton style={{position: "relative",  right: "-85px"}} onClick={handleUpload} isUpload>Upload</CustomButton></PopUpWindow> : 
+        <><ProfileIconContainer><ProfileIcon alt='profile-icon' width='100' height='100' src={displayIcon} /></ProfileIconContainer>
         {visible ? <DisplayNameContainer><span style={{margin: "30px", textAlign: "center"}}>{displayName}</span><EditIcon style={{width:"15px", height:"15px", cursor:"pointer"}} onClick={toggleVisible}/></DisplayNameContainer> 
         : <FormContainer><FormInput style={{margin: "0px 0px 0px 0px"}} name="displayName" placeholder="enter new display name" type="text" handleChange={handleChange} onKeyDown={handleSubmit}  value={replacement}/>
         <CancelButtonWithTooltip onClick={handleCancel}>&#120299;<TooltipText>Cancel</TooltipText></CancelButtonWithTooltip></FormContainer>}
-        {
-            popUp ? <PopUpWindow><HeaderButtonsContainer><span style={{cursor: "pointer"}} onClick={cancelUpload}>&#120299;</span></HeaderButtonsContainer><ImageContainer>{image}</ImageContainer><CustomButton onClick={handleUpload} isUpload>Upload</CustomButton></PopUpWindow> : null
-        }
         <ButtonsContainer>
             <CustomButton>Change Display Icon <FileInput type="file" onChange={handleSelect}/></CustomButton>
         </ButtonsContainer>
-        <Decks activeDecks={activeDecks} changeActiveDecks={changeActiveDecks} isUser/>
-    </PersonalProfileContainer>
+        <Decks activeDecks={activeDecks} changeActiveDecks={changeActiveDecks} isUser/></>
+    }</PersonalProfileContainer>
 }
 
 export default withRouter(PersonalProfile);

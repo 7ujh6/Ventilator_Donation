@@ -5,6 +5,8 @@ import FormInput from '../form-input/form-input.component';
 import {SignUpContainer, SignUpTitle} from './sign-up.styles';
 import CustomButton from '../custom-button/custom-button.component';
 import {UserContext} from '../../providers/user/user.provider';
+import faker from 'faker';
+
 
 const SignUp = () => {
     const [userCredentials, setUserCredentials] = useState({displayName: "", email: "", password: "", confirmPassword: ""})
@@ -20,9 +22,8 @@ const SignUp = () => {
         }
 
         try {
-
             const {user} = await auth.createUserWithEmailAndPassword(email, password);
-            const userRef = await createUserDocument (user, {displayName: displayName, displayIcon: defaultProfileIcon, friendsList: [], blackList: [], activityStatus: {value: "online"}, activeDecks: []});
+            const userRef = await createUserDocument(user, {displayName: displayName, displayIcon: defaultProfileIcon, friendsList: [], blackList: [], activityStatus: {value: "online"}, activeDecks: []});
             changeCurrentUser((await userRef.get()).data());
             setUserCredentials({
                 displayName: "",
@@ -41,6 +42,19 @@ const SignUp = () => {
 
         setUserCredentials({...userCredentials, [name]: value})
     };
+
+    const createFakeCredentials = async event => {
+        
+        try {
+            const fakeName = faker.name.findName(), fakeEmail = faker.internet.email(),
+        fakePassword = "password";
+        const {user} = await auth.createUserWithEmailAndPassword(fakeEmail, fakePassword);
+        const userRef = await createUserDocument(user, {displayName: fakeName, displayIcon: defaultProfileIcon, friendsList: [], blackList: [], activityStatus: {value: "online"}, activeDecks: []});
+        changeCurrentUser((await userRef.get()).data());
+        } catch (error) {
+            console.log(error);
+        }
+    }
     
 
     return <SignUpContainer>
@@ -51,8 +65,9 @@ const SignUp = () => {
             <FormInput type="text" name="email" value={email} onChange={handleChange} label="Email" required/>
             <FormInput type="password" name="password" value={password} onChange={handleChange} label="Password" required/>
             <FormInput type="password" name="confirmPassword" value={confirmPassword} onChange={handleChange} label="Confirm Password" required/>
-            <CustomButton type="submit">SIGN UP</CustomButton>
+            <CustomButton style={{margin:"60px 30px 30px 30px"}} type="submit">SIGN UP</CustomButton>
         </form>
+        <CustomButton style={{margin: "30px"}} onClick={createFakeCredentials}> GUEST SIGNUP</CustomButton>
     </SignUpContainer>
     
 }

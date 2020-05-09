@@ -23,7 +23,6 @@ import './App.css';
 
 const App = ({match}) => {
   const {currentUser, changeCurrentUser} = useContext(UserContext);
-  console.log(match);
 
 
   useEffect(() => {

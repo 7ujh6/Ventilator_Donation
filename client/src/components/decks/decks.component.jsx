@@ -9,7 +9,7 @@ import {DeckContext} from '../../providers/deck/deck.provider';
 import {DecksContainer, ScrollWindow, DeckCell, DisplayTagWithTooltip,
     CardCancelContainer, CancelContainer, DeckDisplay, CardCell} from './decks.styles';
 
-const Decks = ({activeDecks, changeActiveDecks, isUser}) => {
+const Decks = ({activeDecks, changeActiveDecks, isUser, isPublicProfile}) => {
 
     const {visible, popUp, toggleVisible, triggerPopUp} = useContext(DeckContext);
     const [selectedDeck, setSelectedDeck] = useState(null);
@@ -201,19 +201,19 @@ const Decks = ({activeDecks, changeActiveDecks, isUser}) => {
         <div style={{cursor: "pointer", position: "absolute", left: "20px", width: "90px", height: "55px"}} onClick={() => {if (popUp) triggerPopUp()
             toggleVisible()}}><DecksButton/></div>
         {
-           popUp ? <PopUpWindow handlePopUpClose={handlePopUpClose} isCardPopUp>
+           popUp ? <PopUpWindow  handlePopUpClose={handlePopUpClose} isCardPopUp>
                         {
-                            selectedDeck.deck.cards.map((card, idx) => <>
+                            selectedDeck.deck.cards.map((card, idx) => <div>
                                 <Card id={idx} card={card}/>
                                 <CardCancelContainer style={{left: "0px"}} id={idx} onClick={handleCardDeletion}>&#120299;</CardCancelContainer>
-                            </>)
+                            </div>)
                         }
                         {
                                 isUser ? getCardElement() : null
                         }
                     
                     </PopUpWindow>
-           : visible ? <ScrollWindow>
+           : visible ? <ScrollWindow isPublicProfile>
                     <FormInput style={{position: "relative", left:"20%", width: "60%"}} type='search' placeholder="search" value={searchText}
                         onChange={handleSearchChange} onSubmit={null}/> 
                     <DeckDisplay>

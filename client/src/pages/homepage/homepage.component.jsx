@@ -1,5 +1,5 @@
 import React from 'react';
-import {HomePageContainer, InfoGraphicContainer, StatementContainer} from './homepage.styles';
+import {HomePageContainer, InfoGraphicContainer} from './homepage.styles';
 import {WEBSITE_TEXT} from '../../assets/website-text';
 const HomePage = () => {
     const {welcome_text} = WEBSITE_TEXT;

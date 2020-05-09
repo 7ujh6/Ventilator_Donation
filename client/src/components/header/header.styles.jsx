@@ -11,6 +11,8 @@ export const LogoContainer = styled(Link)`
 
 export const ProfileContainer = styled.div`
     position: relative;
+    left: 64%;
+    top: -30px;
 `;
 
 export const DirectoryContainer = styled.div`

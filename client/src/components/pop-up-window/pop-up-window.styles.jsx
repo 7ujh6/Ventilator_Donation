@@ -28,11 +28,15 @@ export const HeaderButtonsContainer = styled.div`
     width: 20px;
     height: 20px;
     top: 140px;
-    right: -400px;
+    right: -750px;
     text-align: center;
     border-radius: 50%;
     cursor: pointer;
     z-index: 4;
+
+    @media screen and (max-width: 800px) {
+        right: -200px;
+    }
 
     &:hover {
         background: red;
@@ -53,6 +57,6 @@ const CardPopUpStyles = css`
 const RegularStyles = css`
     z-index: 1;
     display: flex;
-    flex-position: column;
-    position: sticky;
+    flex-direction: column;
+    justify-content: center;
 `;
