@@ -1,5 +1,5 @@
 {
-  "name": "ventilator-donation",
+  "name": "lang-flash",
   "version": "1.0.0",
   "engines": {
     "node": "12.16.1",
@@ -18,18 +18,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/7ujh6/Ventilator_Donation.git"
+    "url": "git+https://github.com/7ujh6/LangFlashApp.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/7ujh6/Ventilator_Donation/issues"
+    "url": "https://github.com/7ujh6/LangFlashApp.git/issues"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
     "nodemon": "^2.0.3"
   },
-  "homepage": "https://github.com/7ujh6/Ventilator_Donation#readme",
+  "homepage": "https://github.com/7ujh6/LangFlashApp.git#readme",
+
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
