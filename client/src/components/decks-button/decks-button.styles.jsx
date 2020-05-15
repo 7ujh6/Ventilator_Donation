@@ -9,7 +9,7 @@ export const DecksButtonContainer =  styled.div`
 export const LeftAddPane =  styled.div`
     position: relative;
     z-index: 0;
-    background-color:white;
+    background-color: white;
     height: 55px;
     width: 55px;
     left: 30px;

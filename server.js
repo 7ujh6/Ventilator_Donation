@@ -12,7 +12,6 @@
 // app.use(cors());
 
 // //const stripe = require('stripe');
-// //So in order to use the stripe library in the backend, you needed to add the stripe backpage in that environment too
 // //which means in order to access firebase on the backend, we'll probably have to include firebase on the backend
 
 // //maybe just using a fetch on the frontend would be easier would be easier
