@@ -1,7 +1,6 @@
 import React from 'react';
-import {SignInPageContainer, LinksContainer} from './sign-in-page.styles';
+import {SignInPageContainer, LinksContainer, SignUpLink} from './sign-in-page.styles';
 import SignInComponent from '../../components/sign-in/sign-in.component';
-import {SignUpLink} from '../../reusable-styles/sign-up-link';
 
 
 const SignInPage = () => {

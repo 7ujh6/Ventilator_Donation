@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import {Link} from 'react-router-dom'
+
+
 
 export const SignInPageContainer = styled.div`
   width: 850px;
@@ -14,4 +17,7 @@ export const SignInPageContainer = styled.div`
 `;
 export const LinksContainer = styled.div`
       margin: 50px 0px;
+`;
+export const SignUpLink = styled(Link)`
+    text-decoration: none;
 `;
