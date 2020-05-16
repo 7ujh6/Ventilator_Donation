@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d2ac2821.chunk.css",
+    "main.js": "/static/js/main.cd76bb1a.chunk.js",
+    "main.js.map": "/static/js/main.cd76bb1a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.d479f090.js",
+    "runtime-main.js.map": "/static/js/runtime-main.d479f090.js.map",
+    "static/js/2.9c1d64cc.chunk.js": "/static/js/2.9c1d64cc.chunk.js",
+    "static/js/2.9c1d64cc.chunk.js.map": "/static/js/2.9c1d64cc.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.dbfc1cb58c4065af18997586c681d555.js": "/precache-manifest.dbfc1cb58c4065af18997586c681d555.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.d2ac2821.chunk.css.map": "/static/css/main.d2ac2821.chunk.css.map",
+    "static/js/2.9c1d64cc.chunk.js.LICENSE.txt": "/static/js/2.9c1d64cc.chunk.js.LICENSE.txt",
+    "static/media/2020-05-09 15_56_50-React App.png": "/static/media/2020-05-09 15_56_50-React App.269eeef9.png",
+    "static/media/default-profile-icon.png": "/static/media/default-profile-icon.e27c8735.png",
+    "static/media/logo.svg": "/static/media/logo.3df1ec84.svg",
+    "static/media/pencil-edit-button.d37d9400.svg": "/static/media/pencil-edit-button.d37d9400.svg",
+    "static/media/plus_symbol.svg": "/static/media/plus_symbol.aa922b9a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d479f090.js",
+    "static/js/2.9c1d64cc.chunk.js",
+    "static/css/main.d2ac2821.chunk.css",
+    "static/js/main.cd76bb1a.chunk.js"
+  ]
+}
