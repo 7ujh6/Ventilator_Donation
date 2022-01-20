@@ -7,53 +7,38 @@ const getActivityIconStyles = ({activityStatus}) => {
     else
         return offlineIconStyles;
 }
-
+// TODO justify content center and the align content in a column to get everything aligned
 export const PublicProfileContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: 50px;
+    padding-bottom: 2rem;
 `;
 
-export const ProfileIconContainer = styled.div`
-    border-radius: 50%;
-    @media screen and (max-width: 800px) {
-        margin: 0px 100px;
-    }
 
+export const ProfileIconContainer = styled.div`
+    width: 75%;
+    border-radius: 50%;
+    margin: 0 0 2rem 32.5%;
 `;
 
 export const ProfileIcon = styled.img`
-    position: relative;
-    left: 43%;
-    border-radius: 50%;
-
-    @media screen and (max-width: 800px) {
-        left: 0%;
-    }
 
 `;
 
 export const ProfileContainer = styled.div`
-        
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
 `;
 
 export const DisplayNameContainer = styled.span`
-        position: relative;
-        left: 45%;
-
-        @media screen and (max-width: 800px) {
-            left: 30vw;
-        }
 `;
 
+
 export const ButtonsContainer = styled.div`
-        margin-bottom: 30px;
-        position: relative;
-        left: 35%;
-        margin-bottom: 30px;
-        @media screen and (max-width: 800px) {
-            left: 0%;
-        }
+
+    @media screen and (max-width: 800px) {
+        left: 0%;
+    }
 
 `;
 

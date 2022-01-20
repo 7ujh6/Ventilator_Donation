@@ -7,7 +7,8 @@ import {withRouter} from 'react-router-dom';
 
 import {PublicProfileContainer, ProfileContainer, ProfileIconContainer, DisplayNameContainer, ButtonsContainer,
      ActivityIcon, ProfileIcon} from './public-profile.styles';
-
+// TODO fix this component to use localStorage or at least use a loading prop;
+//TODO something is wrong with this code.
 
 const PublicProfile = ({match}) => {
     const {userId} = match.params;
@@ -26,9 +27,11 @@ const PublicProfile = ({match}) => {
     }, [])
 
 
+
     const {displayName, displayIcon, activityStatus, activeDecks} =  profileData.data;
     const {friendsList, blackList, addFriend, removeFriend, blockUser, unblockUser} = useContext(UserContext);
 
+    console.log("Consoling localStorage", localStorage.getItem("user"));
 
     const [friendAdded, toggleFriendAdded] = useState(async () => await friendsList.find((friend) => friend.uid === userId));
     const [userBlocked, toggleUserBlocked] = useState(async () => await blackList.find((user) => user.uid === userId));
@@ -69,7 +72,8 @@ const PublicProfile = ({match}) => {
     }
 
     const handleUnblockAction = event => {
-        try {if (displayName) {
+        try {
+            if (displayName) {
             unblockUser(profileData.data);
             toggleUserBlocked();
         }} catch (error) {
@@ -79,9 +83,13 @@ const PublicProfile = ({match}) => {
 
 
     return <PublicProfileContainer activityStatus={activityStatus}>
-        <ProfileContainer><ProfileIconContainer><ProfileIcon alt="profile-icon" src={displayIcon} height="100" width="100"/></ProfileIconContainer>
-            <ActivityIcon/></ProfileContainer>
-        <DisplayNameContainer>{displayName}</DisplayNameContainer>
+        <ProfileContainer>
+                <ProfileIconContainer>
+                    <ProfileIcon alt="profile-icon" src={displayIcon} height="100" width="100"/>
+                </ProfileIconContainer>
+                <ActivityIcon/>
+            <DisplayNameContainer>{displayName}</DisplayNameContainer>
+        </ProfileContainer>
         <ButtonsContainer>
             {!friendAdded ? <CustomButton onClick={handleAddAction}>Add Friend</CustomButton> : <CustomButton onClick={handleRemoveAction}>Unfriend</CustomButton>}
             {!userBlocked ? <CustomButton onClick={handleBlockAction}>Block User</CustomButton> : <CustomButton onClick={handleUnblockAction}>Unblock User</CustomButton>}

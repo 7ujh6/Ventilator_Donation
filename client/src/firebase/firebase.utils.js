@@ -56,11 +56,10 @@ provider.setCustomParameters({prompt: 'select_account'});
 export const SignInWithGoogle = () => auth.signInWithPopup(provider);
 
 export const fetchReferenceObject =  async (referenceString) => {
-    var profileData = {};
+    let profileData = {};
     await firestore.doc(referenceString).get().then((document) => {
         profileData = {...profileData, data: document.data()};
     })
-
     return profileData;
 }
 

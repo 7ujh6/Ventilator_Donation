@@ -191,11 +191,6 @@ const Decks = ({activeDecks, changeActiveDecks, isUser, isPublicProfile}) => {
                 break;
         }
     }
-
-    // console.log(cardEdited);
-    // console.log(selectedDeck);
-    //console.log(stepCounter);
-
     
     return <DecksContainer>
         <div style={{cursor: "pointer", position: "absolute", left: "20px", width: "90px", height: "55px"}} onClick={() => {if (popUp) triggerPopUp()

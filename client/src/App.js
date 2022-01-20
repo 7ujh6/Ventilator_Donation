@@ -1,5 +1,12 @@
 import React, {useContext, useEffect} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
+import {auth, createUserDocument} from './firebase/firebase.utils';
+import {UserContext} from './providers/user/user.provider';
+import defaultProfileIcon from './assets/default-profile-icon.png';
+import ProfileDisplayProvider from './providers/profile-display/profile-display.provider';
+import ProfileProvider from './providers/profile/profile.provider.jsx';
+import DeckProvider from './providers/deck/deck.provider.jsx';
+
 import Header from './components/header/header.component';
 import Homepage from './pages/homepage/homepage.component.jsx';
 import SignInPage from './pages/sign-in-page/sign-in-page.component';
@@ -9,13 +16,8 @@ import HowToUsePage from './pages/how-to-use-page/how-to-use-page.component.jsx'
 import PersonalProfilePage from './pages/personal-profile-page/personal-profile-page.component';
 import PublicProfilePage from './pages/public-profile-page/public-profile-page.component';
 import BrowseFriendsPage from './pages/browse-friends-page/browse-friends-page.component';
-import {auth, createUserDocument} from './firebase/firebase.utils';
-import {UserContext} from './providers/user/user.provider';
-import defaultProfileIcon from './assets/default-profile-icon.png';
-import ProfileDisplayProvider from './providers/profile-display/profile-display.provider';
-import ProfileProvider from './providers/profile/profile.provider.jsx';
-import DeckProvider from './providers/deck/deck.provider.jsx';
 import './App.css';
+
 
 //import Redirect -> is there an option that waits a duration before redirecting?
 
@@ -26,17 +28,17 @@ const App = ({match}) => {
 
 
   useEffect(() => {
-    //auth.signOut();
+    // auth.signOut();
     auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserDocument(userAuth, {displayIcon: defaultProfileIcon, friendsList: [], blackList: [], activityStatus: {value: "online"}, activeDecks: []});
         await userRef.update({activityStatus: "online"});
         userRef.onSnapshot(snapShot => {changeCurrentUser({id: snapShot.id, ...snapShot.data()})});
       }
-
       else
         changeCurrentUser(userAuth);
     })
+    localStorage.setItem("user", currentUser);
   }, [])
 
     

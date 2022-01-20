@@ -11,7 +11,6 @@ const BrowseFriendsPage = () => {
     //or, we can just pass the banners as props; can store the banners as an object with an array field and import it
     
     return <BrowseFriendsPageContainer>
-            <TabHeader/>
             <BrowseFriends/>
     </BrowseFriendsPageContainer>
 }

@@ -1,17 +1,19 @@
 import React from 'react';
-import {ProfileTabContainer, ActivityIcon} from './profile-tab.styles';
+import { ActivityIcon, ImageWrapper, ProfileTabContainer} from './profile-tab.styles';
 
-
-const ProfileTab = ({user}) => {
+const ProfileTab = ({user, handleClick}) => {
     
-    const {activityStatus, displayIcon, displayName} = user;
-    //const {currentUser: {activityStatus, displayIcon, displayName}} = props;
+    const {activityStatus, displayIcon, displayName, uid} = user;
+    // console.log(user);
 
-    return <ProfileTabContainer activityStatus={activityStatus}>
-        <img alt='default-profile'  width='30' height='30' 
-            src={displayIcon}/>
-        <span>{displayName}</span>
-        <ActivityIcon/>
+    // TODO turn button text into a toolTip that is displayed when hovering over the profile
+
+    return <ProfileTabContainer onClick={(e) => handleClick({ key: uid})} activityStatus={activityStatus}>
+        <ImageWrapper>
+            <img alt='default-profile'  width='50' height='50' src={displayIcon}/>
+        </ImageWrapper>
+        <span>{displayName ? displayName : 'N/A'}</span>
+        <ActivityIcon activityStatus={activityStatus}/>
     </ProfileTabContainer>
 }
 
