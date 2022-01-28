@@ -26,19 +26,19 @@ import './App.css';
 const App = ({match}) => {
   const {currentUser, changeCurrentUser} = useContext(UserContext);
 
-
   useEffect(() => {
-    // auth.signOut();
     auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserDocument(userAuth, {displayIcon: defaultProfileIcon, friendsList: [], blackList: [], activityStatus: {value: "online"}, activeDecks: []});
+        userRef.onSnapshot(snapShot => changeCurrentUser({id: snapShot.id, ...snapShot.data()}));
         await userRef.update({activityStatus: "online"});
-        userRef.onSnapshot(snapShot => {changeCurrentUser({id: snapShot.id, ...snapShot.data()})});
+        localStorage.setItem("user", userAuth);
       }
-      else
-        changeCurrentUser(userAuth);
+      else {
+        changeCurrentUser(null);
+        // auth.signOut();
+      }
     })
-    localStorage.setItem("user", currentUser);
   }, [])
 
     

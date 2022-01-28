@@ -4,37 +4,38 @@ import ProfileTab from '../profile-tab/profile-tab.component';
 import {ProfileDropdownContainer, LabelContainer, DropdownLink} from './profile-dropdown.styles';
 import {UserContext} from '../../providers/user/user.provider';
 import {ProfileDisplayContext} from '../../providers/profile-display/profile-display.provider';
-import {auth} from '../../firebase/firebase.utils';
-
+import {auth, createUserDocument } from '../../firebase/firebase.utils';
+import 'firebase/firestore';
 
 const ProfileDropdown = ({history}) => {
 
-    const {currentUser, friendsList} = useContext(UserContext);
+    const { currentUser } = useContext(UserContext), { friendsList } = currentUser;
     const {toggleHidden, activeFriends, fetchActiveFriends} = useContext(ProfileDisplayContext);
-
-    console.log(friendsList);
-    console.log("The user in storage", localStorage.getItem("user"));
-    console.log("The user", currentUser);
 
 
 
     //I'm pretty sure this is wrong somehow but I have yet to find out 
     useEffect (() => {
-    //    friendsList.map(async friend => `users/${(friend.currentUser.uid)}`.get().child('activityStatus').onSnapshot(() => {
-    //        fetchActiveFriends(friendsList);
-    //        console.log("I am being called within profile-dropdown");
-    //     }))
-    }, [])
+       friendsList.map(async friend => { 
+        // const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+        //    console.log("getUserDoc", friend, await createUserDocument(friend));
+            await createUserDocument(friend).get().onSnapshot(() => {
+                fetchActiveFriends(friendsList);
+        })
+    })
+    }, [friendsList, fetchActiveFriends])
 
 
     return <ProfileDropdownContainer>
         <LabelContainer onClick={() => { 
-            console.log("I am being reached!");
             toggleHidden();
             history.push('/');
             return auth.signOut()}}>Signout</LabelContainer>
+        <DropdownLink onClick={toggleHidden} to="/browseusers">Browse Users</DropdownLink>
+        <DropdownLink onClick={toggleHidden} to="/profile">View Profile</DropdownLink>
         {
-            activeFriends.forEach(friend =>
+            activeFriends.map(friend =>
                 {
                     return <ProfileTab friend={friend} onClick={() => {
                         toggleHidden();
@@ -42,8 +43,6 @@ const ProfileDropdown = ({history}) => {
                 }
             )
         }
-        <DropdownLink onClick={toggleHidden} to="/browseusers">Browse Users</DropdownLink>
-        <DropdownLink onClick={toggleHidden} to="/profile">View Profile</DropdownLink>
     </ProfileDropdownContainer>;
 }
 

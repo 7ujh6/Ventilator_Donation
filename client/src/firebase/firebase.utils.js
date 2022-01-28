@@ -22,9 +22,9 @@ firebase.initializeApp(config);
 export const createUserDocument = async (userAuth, additionalData) => {
     if (!userAuth)
         return;
-
-
+    console.log("Friend object with uid", userAuth)
     const userRef = firestore.doc(`users/${userAuth.uid}`);
+    console.log("userRef postdoc", userAuth.uid, await userRef, await userRef.get());
     const snapShot = await userRef.get();
     
     if (!snapShot.exists)
@@ -43,7 +43,13 @@ export const createUserDocument = async (userAuth, additionalData) => {
     }
 
     //changeCurrentUser(snapShot.data());
+    console.log("UserRef going out", userRef, await userRef.get());
     return userRef;
+}
+
+export const getInnerRef = async (user, innerAttribute) => {
+    const userRef = firestore.doc(`users/${user.uid}`).get;
+    return await userRef.get(innerAttribute);
 }
 
 export const auth = firebase.auth();
